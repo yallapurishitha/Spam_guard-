@@ -1,1 +1,1 @@
-# Spam_guard-
+AUTOMATIC SPAM DETECTION
