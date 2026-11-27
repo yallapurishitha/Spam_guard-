@@ -1,19 +1,22 @@
 import pandas as pd
 from clean_data import clean_text
 
-# Load dataset
-df = pd.read_csv("../dataset/spam.csv")
+# Load SMS dataset
+df = pd.read_csv(
+    "../dataset/sms/SMSSpamCollection",
+    sep="\t",
+    header=None,
+    names=["label", "message"]
+)
 
-# Apply text cleaning
-df['cleaned_text'] = df['text'].apply(clean_text)
-
-# Remove duplicate messages
+# Remove missing values and duplicates
+df = df.dropna()
 df = df.drop_duplicates()
 
-# Remove missing values
-df = df.dropna()
+# Clean messages
+df["cleaned_text"] = df["message"].apply(clean_text)
 
 # Save cleaned dataset
-df.to_csv("../dataset/cleaned_data.csv", index=False)
+df.to_csv("../dataset/sms/cleaned_sms.csv", index=False)
 
-print("Preprocessing completed!")
+print("SMS preprocessing completed!")
